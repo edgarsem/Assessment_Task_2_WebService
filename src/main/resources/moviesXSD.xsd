@@ -1,0 +1,200 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://spring.io/guides/gs-producing-web-service"
+           targetNamespace="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
+
+
+  <xs:element name="changeActorRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="actorId" type="xs:int"/>
+        <xs:element name="actor" type="tns:actor"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="changeActorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="actor" type="tns:actor"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+
+
+  <xs:element name="deleteActorRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="movieId" type="xs:int"/>
+        <xs:element name="actorId" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deleteActorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="deleteActor" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+
+  <xs:element name="addDirectorRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="movieTitle" type="xs:string"/>
+        <xs:element name="director" type="tns:director"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="addDirectorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="addedDirector" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+
+
+
+
+  <xs:element name="getMovieActorsRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="movieTitle" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getMovieActorsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="getMovieActorsReturn" type="tns:actor"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+
+  <xs:element name="getAllMoviesRequest">
+    <xs:complexType/>
+  </xs:element>
+
+  <xs:element name="getAllMoviesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="allMovies" type="tns:movie"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+
+  <xs:element name="getMoviesByGenreRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="genre" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getMoviesByGenreResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="moviesByGenre" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+
+  <xs:element name="getMovieRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getMovieResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="movie" type="tns:movie"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+
+
+  <xs:complexType name="movie">
+    <xs:sequence>
+      <xs:element type="xs:byte" name="id"/>
+      <xs:element type="xs:string" name="title"/>
+      <xs:element type="xs:short" name="length"/>
+      <xs:element name="genres" type="tns:genre" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="directors" type="tns:director" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="writers" type="tns:writer" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="cast" type="tns:actor" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="reviews" type="tns:movieReview" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="genre">
+    <xs:sequence>
+      <xs:element type="xs:byte" name="id"/>
+      <xs:element type="xs:string" name="category"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="director">
+    <xs:sequence>
+      <xs:element type="xs:byte" name="id"/>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="xs:string" name="lastName"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="writer">
+    <xs:sequence>
+      <xs:element type="xs:byte" name="id"/>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="xs:string" name="lastName"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="actor">
+    <xs:sequence>
+      <xs:element type="xs:byte" name="id"/>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="xs:string" name="lastName"/>
+      <xs:element type="xs:byte" name="age"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="movieReview">
+    <xs:sequence>
+      <xs:element type="xs:byte" name="id"/>
+      <xs:element type="xs:string" name="criticism"/>
+      <xs:element type="xs:byte" name="rating"/>
+      <xs:element name="user" type="tns:user"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="user">
+    <xs:sequence>
+      <xs:element type="xs:byte" name="id"/>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="xs:string" name="lastName"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+
